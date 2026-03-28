@@ -15,11 +15,13 @@ const Footer = () => {
             width={36}
             className="w-6 h-6 md:w-9 md:h-9"
           />
-          <p className=" text-md font-medium tracking-wider">Love'n Grill</p>
+          <p className=" text-md font-medium tracking-wider">
+            Love&apos;n Grill
+          </p>
         </Link>
         <p className="text-gray-400 flex items-center gap-1">
           <Copyright className="w-4 h-4" />
-          2026 Love'n Grill
+          2026 Love&apos;n Grill
         </p>
         <p className="text-gray-400">All Rights Reserved</p>
       </div>

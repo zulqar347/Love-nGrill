@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { DefaultSession } from "next-auth";
 export type ProductType = {
-  _id: any;
+  _id: unknown;
   name: string;
   shortDescription: string;
   description: string;

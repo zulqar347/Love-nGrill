@@ -6,7 +6,7 @@ const categorySchema = new mongoose.Schema({
   description: { type: String },
 });
 
-categorySchema.pre("save", function (next) {
+categorySchema.pre("save", function () {
   if (this.isModified("name")) {
     this.slug = this.name
       ?.toLocaleLowerCase()
@@ -14,7 +14,6 @@ categorySchema.pre("save", function (next) {
       .replace(/[^a-z0-9\s-]/g, "")
       .replace(/\s+/g, "-");
   }
-  next;
 });
 
 const Category =

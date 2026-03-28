@@ -1,18 +1,17 @@
 import { CartStoreActionsType, CartStoreStateType } from "@/types";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { v4 as uuidv4 } from "uuid";
 
 const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       cart: [],
 
       addToCart: (product) =>
         set((state) => {
           const existing = state.cart.find(
             (p) =>
-              p.id === product.id &&
+              p._id === product._id &&
               p.selectedColor === product.selectedColor &&
               p.selectedSize === product.selectedSize,
           );
@@ -21,7 +20,7 @@ const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
             // increase quantity
             return {
               cart: state.cart.map((p) =>
-                p.id === product.id &&
+                p._id === product._id &&
                 p.selectedColor === product.selectedColor &&
                 p.selectedSize === product.selectedSize
                   ? { ...p, quantity: (p.quantity || 1) + 1 }
@@ -42,7 +41,7 @@ const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
         set((state) => {
           const existing = state.cart.find(
             (p) =>
-              p.id === product.id &&
+              p._id === product._id &&
               p.selectedColor === product.selectedColor &&
               p.selectedSize === product.selectedSize,
           );
@@ -53,7 +52,7 @@ const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
           if (existing?.quantity > 1) {
             return {
               cart: state.cart.map((p) =>
-                p.id === product.id &&
+                p._id === product._id &&
                 p.selectedColor === product.selectedColor &&
                 p.selectedSize === product.selectedSize
                   ? { ...p, quantity: p.quantity - 1 }
@@ -66,7 +65,7 @@ const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
             cart: state.cart.filter(
               (p) =>
                 !(
-                  p.id === product.id &&
+                  p._id === product._id &&
                   p.selectedColor === product.selectedColor &&
                   p.selectedSize === product.selectedSize
                 ),

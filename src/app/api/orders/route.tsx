@@ -1,6 +1,5 @@
 import { connectDB } from "@/lib/db";
 import Order from "@/lib/models/Orders";
-import Product from "@/lib/models/Products";
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "../../../../auth";
 

@@ -22,7 +22,7 @@ const Navbar = async () => {
           className="w-6 h-6 md:w-9 md:h-9"
         />
         <p className=" hidden md:block text-md font-medium tracking-wider">
-          Love'n Shop
+          Love&apos;n Shop
         </p>
       </Link>
       {/* RIGHT SIDE */}

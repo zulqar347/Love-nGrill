@@ -1,6 +1,5 @@
 import { connectDB } from "@/lib/db";
 import Category from "@/lib/models/Categories";
-import Product from "@/lib/models/Products";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async () => {

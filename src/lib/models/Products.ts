@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema(
   },
 );
 
-productSchema.pre("save", function (next) {
+productSchema.pre("save", function () {
   if (this.isModified("name")) {
     this.slug = this.name
       ?.toLowerCase()
@@ -25,7 +25,6 @@ productSchema.pre("save", function (next) {
       .replace(/[^a-z0-9\s-]/g, "")
       .replace(/\s+/g, "-");
   }
-  next;
 });
 
 const Product =

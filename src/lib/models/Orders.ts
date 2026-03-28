@@ -30,23 +30,21 @@ const orderSchema = new mongoose.Schema(
   },
 );
 
-orderSchema.pre("save", async function (next) {
-  if (!this.isModified("products")) next;
+orderSchema.pre("save", async function () {
+  if (!this.isModified("products")) return;
 
   try {
     let totalAmount = 0;
     let totalItems = 0;
-    for (let item of this.products) {
+    for (const item of this.products) {
       const productData = await Product.findById(item.product);
       totalAmount += productData.price * item.quantity;
       totalItems += item.quantity;
     }
     this.totalAmount = totalAmount;
     this.totalItems = totalItems;
-    next;
   } catch (error) {
     return error;
-    next;
   }
 });
 
