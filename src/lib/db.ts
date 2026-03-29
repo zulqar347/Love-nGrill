@@ -1,30 +1,53 @@
+import { MongoClient, ServerApiVersion } from "mongodb";
 import mongoose from "mongoose";
-import { MongoClient } from "mongodb";
 
 if (!process.env.MONGODB_URI) {
   throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
 }
 
-const client = new MongoClient(process.env.MONGODB_URI);
-export const clientPromise = client.connect();
+const uri = process.env.MONGODB_URI;
+const options = {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+};
 
-const mongodb_uri = process.env.MONGODB_URI!;
+let client: MongoClient;
+let clientPromise: Promise<MongoClient>;
 
+// --- MONGODB CLIENT (For Auth.js Adapter) ---
+if (process.env.NODE_ENV === "development") {
+  // In development mode, use a global variable so the value
+  // is preserved across module reloads caused by HMR (Hot Module Replacement).
+  let globalWithMongo = global as typeof globalThis & {
+    _mongoClientPromise?: Promise<MongoClient>;
+  };
+
+  if (!globalWithMongo._mongoClientPromise) {
+    client = new MongoClient(uri, options);
+    globalWithMongo._mongoClientPromise = client.connect();
+  }
+  clientPromise = globalWithMongo._mongoClientPromise;
+} else {
+  // In production mode, it's best to not use a global variable.
+  client = new MongoClient(uri, options);
+  clientPromise = client.connect();
+}
+
+export { clientPromise };
+
+// --- MONGOOSE CONNECTION (For your API models) ---
 export const connectDB = async () => {
   const connectionState = mongoose.connection.readyState;
-  if (connectionState === 1) {
-    console.log("Already Connected");
-    return;
-  }
-  if (connectionState === 2) {
-    console.log("connecting");
-    return;
-  }
+  if (connectionState === 1) return; // Already Connected
+  if (connectionState === 2) return; // Connecting...
+
   try {
-    await mongoose.connect(mongodb_uri);
-    console.log("✅ MongoDB connected successfully");
+    await mongoose.connect(uri);
+    console.log("✅ MongoDB connected successfully (Mongoose)");
   } catch (error) {
-    console.error("Connection to MondoDB Failed", error);
-    throw new Error();
+    console.error("❌ Mongoose Connection Failed", error);
   }
 };

@@ -20,7 +20,8 @@ const ProductsList = async ({
     products = JSON.parse(JSON.stringify(rawProducts));
     // console.log(products);
   } catch (error) {
-    throw new Error();
+    console.error("Products fetch error:", error);
+    return [];
   }
 
   return (

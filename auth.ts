@@ -4,8 +4,6 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { clientPromise } from "@/lib/db";
 import { ObjectId } from "mongodb";
 
-import type { Session, User } from "next-auth";
-
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
 
@@ -17,12 +15,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   ],
 
   events: {
-    async createUser({ user }: { user: User }) {
+    async createUser({ user }) {
       const client = await clientPromise;
       const db = client.db();
 
       const role =
-        user.email === "zulqurnainghufran407@gmail.com" ? "admin" : "user";
+        user.email && user.email === "zulqurnainghufran407@gmail.com"
+          ? "admin"
+          : "user";
 
       await db
         .collection("users")
@@ -31,7 +31,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   },
 
   callbacks: {
-    async session({ session, user }: { session: Session; user: User }) {
+    async session({ session, user }) {
       const client = await clientPromise;
       const db = client.db();
 
