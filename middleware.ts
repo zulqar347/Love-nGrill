@@ -1,18 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
-import { auth } from "./auth";
+// middleware.ts
+import NextAuth from "next-auth";
+import authConfig from "./auth.config";
 
-const protectedRoute = ["/admin"];
+export default NextAuth(authConfig).auth;
 
-export default async function middleware(request: NextRequest) {
-  const session = await auth();
-  const { pathname } = request.nextUrl;
-  const isProtected = protectedRoute.some((route) =>
-    pathname.startsWith(route),
-  );
-
-  if (isProtected && session?.user.role !== "admin") {
-    return;
-    // return NextResponse.redirect(new URL("api/auth/signin", request.url));
-  }
-  return NextResponse.next();
-}
+export const config = {
+  // Protects all routes except api, static files, and images
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+};
