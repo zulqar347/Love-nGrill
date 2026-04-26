@@ -1,25 +1,18 @@
 import ProductInteraction from "@/components/ProductInteraction";
+import { connectDB } from "@/lib/db";
+import Product from "@/lib/models/Products";
 import { CartItem, ProductType } from "@/types";
 import Image from "next/image";
 import React from "react";
 
-// Temporary
-const product: ProductType = {
-  id: 3,
-  name: "Nike Air Essentials Pullover",
-  shortDescription:
-    "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-  description:
-    "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-  price: 69.9,
-  sizes: ["s", "m", "l"],
-  colors: ["green", "blue", "black"],
-  images: {
-    green: "/products/3gr.png",
-    blue: "/products/3b.png",
-    black: "/products/3bl.png",
-  },
-};
+let product: ProductType;
+try {
+  await connectDB();
+  const rawProduct = await Product.find().lean();
+  product = JSON.parse(JSON.stringify(rawProduct));
+} catch (error) {
+  console.error(error);
+}
 
 export const generateMetaData = async ({
   params,

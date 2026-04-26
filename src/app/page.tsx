@@ -1,3 +1,4 @@
+import HeroSection from "@/components/Hero";
 import ProductsList from "@/components/ProductsList";
 import Image from "next/image";
 
@@ -11,7 +12,7 @@ const Homepage = async ({
   return (
     <div>
       <div className="relative aspect-[3/1] mb-12">
-        <Image src={"/featured.png"} alt="featured_image" fill />
+        <HeroSection />
       </div>
       <ProductsList category={category} page="homePage" />
     </div>

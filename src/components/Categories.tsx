@@ -1,55 +1,32 @@
 "use client";
-import {
-  Briefcase,
-  Footprints,
-  Glasses,
-  Hand,
-  Shirt,
-  ShoppingBasket,
-  Venus,
-} from "lucide-react";
+import { Pizza, Sandwich, Coffee, Drumstick } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const categories = [
   {
     name: "All",
-    icon: <ShoppingBasket className="w-4 h-4" />,
+    icon: <Pizza className="w-4 h-4" />,
     slug: "all",
   },
   {
-    name: "T-shirts",
-    icon: <Shirt className="w-4 h-4" />,
-    slug: "t-shirts",
+    name: "Pizza",
+    icon: <Pizza className="w-4 h-4" />,
+    slug: "pizza",
   },
   {
-    name: "Shoes",
-    icon: <Footprints className="w-4 h-4" />,
-    slug: "shoes",
+    name: "Burgers",
+    icon: <Sandwich className="w-4 h-4" />,
+    slug: "burgers",
   },
   {
-    name: "Accessories",
-    icon: <Glasses className="w-4 h-4" />,
-    slug: "accessories",
+    name: "Chicken",
+    icon: <Drumstick className="w-4 h-4" />,
+    slug: "chicken",
   },
   {
-    name: "Bags",
-    icon: <Briefcase className="w-4 h-4" />,
-    slug: "bags",
-  },
-  {
-    name: "Dresses",
-    icon: <Venus className="w-4 h-4" />,
-    slug: "dresses",
-  },
-  {
-    name: "Jackets",
-    icon: <Shirt className="w-4 h-4" />,
-    slug: "jackets",
-  },
-  {
-    name: "Gloves",
-    icon: <Hand className="w-4 h-4" />,
-    slug: "gloves",
+    name: "Beverages",
+    icon: <Coffee className="w-4 h-4" />,
+    slug: "beverages",
   },
 ];
 
@@ -72,8 +49,8 @@ const Categories = () => {
           onClick={() => handleChange(category.slug)}
           className={
             param !== category.slug
-              ? "flex items-center text-sm gap-1 rounded-md px-2 py-1  bg-gray-100 text-gray-600 cursor-pointer"
-              : "flex items-center text-sm gap-1 rounded-md px-2 py-1  bg-gray-500 text-gray-200 cursor-pointer"
+              ? "flex items-center text-sm gap-1 rounded-md px-2 py-1 bg-gray-100 text-gray-600 cursor-pointer"
+              : "flex items-center text-sm gap-1 rounded-md px-2 py-1 bg-gray-500 text-gray-200 cursor-pointer"
           }
           key={category.name}
         >

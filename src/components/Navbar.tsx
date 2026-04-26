@@ -16,13 +16,13 @@ const Navbar = async () => {
       <Link href={"/"} className="flex items-center">
         <Image
           src={"/logo.png"}
-          alt="Love'n Shop"
+          alt="Love'n Grill"
           height={36}
           width={36}
           className="w-6 h-6 md:w-9 md:h-9"
         />
         <p className=" hidden md:block text-md font-medium tracking-wider">
-          Love&apos;n Shop
+          Love&apos;n Grill
         </p>
       </Link>
       {/* RIGHT SIDE */}

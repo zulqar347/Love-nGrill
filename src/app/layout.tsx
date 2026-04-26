@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import { ToastContainer } from "react-toastify";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Love'n Shop - Best Online Store",
-  description: "Love'n Shop is the best shopping store online",
+  title: "Love'n Grill - Best Fast Food Restaurant",
+  description: "Love'n Grill is the best Fast Food Restaurant in the town",
 };
 
 export default function RootLayout({
